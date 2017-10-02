@@ -1,0 +1,76 @@
+entity.monahan_variables_mv_type.collection:
+  path: '/admin/structure/monahan_variables'
+  defaults:
+    _entity_list: 'monahan_variables_mv_type'
+    _title: 'Monahan Variables Groups'
+  requirements:
+    _permission: 'administer mv entity'
+
+monahan_variables.type_add:
+  path: '/admin/structure/monahan_variables/add'
+  defaults:
+    _entity_form: 'monahan_variables_mv_type.add'
+    _title: 'Add'
+  requirements:
+    _permission: 'administer mv entity'
+
+entity.monahan_variables_mv_type.edit_form:
+  path: '/admin/structure/monahan_variables/manage/{monahan_variables_mv_type}'
+  defaults:
+    _entity_form: 'monahan_variables_mv_type.add'
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _entity_access: 'monahan_variables_mv_type.update'
+
+entity.monahan_variables_mv_type.delete_form:
+  path: '/admin/structure/monahan_variables/manage/{monahan_variables_mv_type}/delete'
+  defaults:
+    _entity_form: 'monahan_variables_mv_type.delete'
+    _title: 'Delete'
+  requirements:
+    _entity_access: 'monahan_variables_mv_type.delete'
+
+entity.monahan_variables_mv.collection:
+  path: '/admin/content/monahan_variables'
+  defaults:
+    _entity_list: 'monahan_variables_mv'
+    _title: 'Monahan Variables'
+  requirements:
+    _permission: 'administer mv entity'
+
+monahan_variables_mv.add_page:
+  path: '/admin/content/monahan_variables/add'
+  defaults:
+    _title: 'Add variables'
+    _controller: '\Drupal\monahan_variables\Controller\MVController::addPage'
+  requirements:
+    _entity_create_access: 'monahan_variables_mv'
+
+monahan_variables_mv.add:
+  path: '/admin/content/monahan_variables/add/{monahan_variables_mv_type}'
+  defaults:
+    _title: 'Add variables'
+    _controller: '\Drupal\monahan_variables\Controller\MVController::add'
+  options:
+    _admin_route: TRUE
+    parameters:
+      monahan_variables_mv_type:
+        type: entity:monahan_variables_mv_type
+  requirements:
+    _entity_create_access: 'monahan_variables_mv'
+
+entity.monahan_variables_mv.edit_form:
+  path: '/admin/content/monahan_variables/{monahan_variables_mv}'
+  defaults:
+    _entity_form: monahan_variables_mv.edit
+    _title: 'Edit MV Group'
+  requirements:
+    _entity_access: 'monahan_variables_mv.edit'
+
+entity.monahan_variables_mv.delete_form:
+  path: '/admin/content/monahan_variables/{monahan_variables_mv}/delete'
+  defaults:
+    _entity_form: monahan_variables_mv.delete
+    _title: 'Delete MV Group'
+  requirements:
+    _entity_access: 'monahan_variables_mv.delete'

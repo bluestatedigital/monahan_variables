@@ -1,0 +1,11 @@
+view mv entity:
+  title: 'View Monahan Variables Group'
+add mv entity:
+  title: 'Add Monahan Variables Group'
+edit mv entity:
+  title: 'Edit Monahan Variables Group'
+delete mv entity:
+  title: 'Delete Monahan Variables Group'
+administer mv entity:
+  title: 'Administer Monahan Variables Group'
+  restrict access: TRUE

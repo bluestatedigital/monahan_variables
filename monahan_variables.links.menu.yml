@@ -1,0 +1,11 @@
+entity.monahan_variables_mv_type.collection:
+  title: 'Monahan Variables Groups'
+  description: 'Manage Monahan Variables'
+  parent: system.admin_structure
+  route_name: entity.monahan_variables_mv_type.collection
+
+entity.monahan_variables_mv.collection:
+  title: Monahan Variables
+  description: 'List and edit the Monahan Variables.'
+  parent: system.admin_content
+  route_name: entity.monahan_variables_mv.collection

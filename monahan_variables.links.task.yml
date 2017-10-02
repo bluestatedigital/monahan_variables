@@ -1,0 +1,4 @@
+entity.monahan_variables_mv.collection:
+  title: Monahan Variables
+  route_name: entity.monahan_variables_mv.collection
+  base_route: system.admin_content
