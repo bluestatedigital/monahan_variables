@@ -114,13 +114,10 @@ class MV extends ContentEntityBase implements MVInterface {
 
     $fields['type']->setLabel(t('Monahan Variables Group'))->setDescription(t('The group.'));
 
-    // Name field for the contact.
-    // We set display options for the view as well as the form.
-    // Users with correct privileges can change the view and edit configuration.
-
     $fields['label'] = BaseFieldDefinition::create('string')
      ->setLabel(t('Label'))
      ->setDescription(t('The label for the group.'))
+     ->setTranslatable(TRUE)
      ->setSettings(array(
        'default_value' => '',
        'max_length' => 255,
