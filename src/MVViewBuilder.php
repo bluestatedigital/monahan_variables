@@ -6,6 +6,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityViewBuilder;
 use Drupal\Core\Render\Element;
 
+/**
+ * View builder for Monahan Variables.
+ */
 class MVViewBuilder extends EntityViewBuilder {
 
   /**
