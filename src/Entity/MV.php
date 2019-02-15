@@ -146,24 +146,24 @@ class MV extends ContentEntityBase implements MVInterface {
       ->setDescription(t('The time that the entity was last edited.'));
 
     $fields['revision_timestamp'] = BaseFieldDefinition::create('created')
-     ->setLabel(t('Revision timestamp'))
-     ->setDescription(t('The time that the current revision was created.'))
-     ->setQueryable(FALSE)
-     ->setRevisionable(TRUE);
+      ->setLabel(t('Revision timestamp'))
+      ->setDescription(t('The time that the current revision was created.'))
+      ->setCustomStorage(TRUE)
+       ->setRevisionable(TRUE);
 
     $fields['revision_uid'] = BaseFieldDefinition::create('entity_reference')
-     ->setLabel(t('Revision user ID'))
-     ->setDescription(t('The user ID of the author of the current revision.'))
-     ->setSetting('target_type', 'user')
-     ->setQueryable(FALSE)
-     ->setRevisionable(TRUE);
+      ->setLabel(t('Revision user ID'))
+      ->setDescription(t('The user ID of the author of the current revision.'))
+      ->setSetting('target_type', 'user')
+      ->setCustomStorage(TRUE)
+      ->setRevisionable(TRUE);
 
     $fields['revision_log'] = BaseFieldDefinition::create('string_long')
-     ->setLabel(t('Revision log message'))
-     ->setDescription(t('Briefly describe the changes you have made.'))
-     ->setRevisionable(TRUE)
-     ->setDefaultValue('')
-     ->setDisplayOptions('form', [
+      ->setLabel(t('Revision log message'))
+      ->setDescription(t('Briefly describe the changes you have made.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
        'type' => 'string_textarea',
        'weight' => 25,
        'settings' => [

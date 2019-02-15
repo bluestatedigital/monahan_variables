@@ -27,6 +27,9 @@ class MVViewBuilder extends EntityViewBuilder {
     return $this->buildMultiple($build_list);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildMultiple(array $build_list) {
     $list = parent::buildMultiple($build_list);
     foreach ($list as $index => $entity) {
