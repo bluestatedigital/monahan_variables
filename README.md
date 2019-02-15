@@ -15,9 +15,6 @@ ExpressionEngine.
 # Requirements
 No special requirements
 
-# Installation
-Install as you would normally install a custom module.
-
 # Configuration
 * Create new variable groups in Administration > Structure > Monahan Variable 
 Groups. Add and configure fields just as you would on a content type.
@@ -26,11 +23,13 @@ Variables. (To make a new set of editable fields, you must both configure the
 bundle *and* create a new entity.)
 * Configure user permissions in Administration > Stucture > People > 
 Permissions.
-    - "Administer Monahan Variables Group": The permission allows users to configure
-    the fields included in a group and add and delete entities. It should only 
-    be given to users who can administer the site and theme.
-    - "Edit MV Entry": This permission allows users to change the content of 
-    variables (i.e. update text or links).
+
+# Usage    
+To display content on the front-end, you'll need to pull in the variable group
+or individual field via a preprocess function. The `monahan_variables.manager` 
+service contains two methods for doing this: getVariables(), which returns the 
+full render array for a variable group, and getValue(), which returns the value 
+of a single field within the group.
 
 # Credits
 Created by Kelli Monahan at [Blue State Digital](http://www.bluestatedigital.com).

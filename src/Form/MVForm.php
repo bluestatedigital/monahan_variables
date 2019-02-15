@@ -26,7 +26,10 @@ class MVForm extends ContentEntityForm {
     $form = parent::form($form, $form_state);
 
     if ($this->operation == 'edit') {
-      $form['#title'] = $this->t('Edit Monahan Variables %label', ['%label' => $mv->label()]);
+      $form['#title'] = $this->t(
+        'Edit Monahan Variables %label',
+        ['%label' => $mv->label()]
+      );
     }
 
     return $form;

@@ -106,10 +106,20 @@ class MVTypeForm extends BundleEntityFormBase {
     $status = $mv_type->save();
 
     if ($status == SAVED_UPDATED) {
-      drupal_set_message(t('Monahan Variables group type %label has been updated.', ['%label' =>$mv_type->label()]));
+      drupal_set_message(
+        t(
+          'Monahan Variables group type %label has been updated.',
+          ['%label' =>$mv_type->label()]
+        )
+      );
     }
     else {
-      drupal_set_message(t('Monahan Variables group type %label has been added.', ['%label' => $mv_type->label()]));
+      drupal_set_message(
+        t(
+          'Monahan Variables group type %label has been added.',
+          ['%label' => $mv_type->label()]
+        )
+      );
     }
 
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));

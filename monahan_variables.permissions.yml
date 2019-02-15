@@ -1,11 +1,11 @@
-view mv entity:
-  title: 'View Monahan Variables Group'
-add mv entity:
-  title: 'Add Monahan Variables Group'
-edit mv entity:
-  title: 'Edit Monahan Variables Group'
-delete mv entity:
-  title: 'Delete Monahan Variables Group'
-administer mv entity:
-  title: 'Administer Monahan Variables Group'
+view monahan_variables_mv list:
+  title: 'View Monahan Variables List'
+create monahan_variables_mv:
+  title: 'Add Monahan Variables'
+edit monahan_variables_mv:
+  title: 'Edit Monahan Variables'
+delete monahan_variables_mv:
+  title: 'Delete Monahan Variables'
+administer monahan_variables_mv_type:
+  title: 'Administer Monahan Variables Groups'
   restrict access: TRUE

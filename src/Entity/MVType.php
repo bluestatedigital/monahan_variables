@@ -19,8 +19,9 @@ use Drupal\monahan_variables\MVTypeInterface;
  *       "delete" = "Drupal\monahan_variables\Form\MVTypeDeleteForm"
  *     },
  *     "list_builder" = "Drupal\monahan_variables\MVTypeListBuilder",
+ *     "access" = "Drupal/monahan_variables\MVTypeAccessControlHandler",
  *   },
- *   admin_permission = "administer mv entity",
+ *   admin_permission = "administer monahan_variables_mv_type",
  *   config_prefix = "type",
  *   bundle_of = "monahan_variables_mv",
  *   entity_keys = {

@@ -3,3 +3,8 @@ monahan_variables.type_add:
   title: 'Add group'
   appears_on:
     - entity.monahan_variables_mv_type.collection
+monahan_variables.add:
+  route_name: monahan_variables_mv.add_page
+  title: 'Add variables'
+  appears_on:
+    - entity.monahan_variables_mv.collection

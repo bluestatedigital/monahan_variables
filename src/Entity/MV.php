@@ -24,6 +24,7 @@ use Drupal\user\UserInterface;
  *    "view_builder" = "Drupal\monahan_variables\MVViewBuilder",
  *    "form" = {
  *       "default" = "Drupal\monahan_variables\Form\MVForm",
+ *       "add" = "Drupal\monahan_variables\Form\MVForm",
  *       "edit" = "Drupal\monahan_variables\Form\MVForm",
  *       "delete" = "Drupal\monahan_variables\Form\MVDeleteForm",
  *     },
@@ -32,7 +33,6 @@ use Drupal\user\UserInterface;
  *   base_table = "monahan_variables_mv",
  *   revision_table = "monahan_variables_mv_revision",
  *   data_table = "monahan_variables_mv_field_data",
- *   admin_permission = "administer mv entity",
  *   revision_data_table = "monahan_variables_mv_field_revision",
  *   show_revision_ui = TRUE,
  *   translatable = TRUE,
@@ -126,6 +126,7 @@ class MV extends ContentEntityBase implements MVInterface {
        'max_length' => 255,
        'text_processing' => 0,
      ))
+     ->setRequired(TRUE)
      ->setDisplayOptions('view', array(
        'label' => 'hidden',
        'type' => 'string',

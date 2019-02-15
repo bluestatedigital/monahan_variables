@@ -1,32 +1,39 @@
 {#
 /**
  * @file
- * Default theme implementation to list node types available for adding content.
+ * Default theme implementation to list Monahan Variable group types available.
  *
- * This list is displayed on the Add content admin page.
+ * This list is displayed on the Add Monahan Variables admin page.
  *
  * Available variables:
  * - types: A list of content types, each with the following properties:
- *   - add_link: Link to create a piece of content of this type.
+ *   - url: Path to add variables of this type.
+ *   - label: The title of this variable group.
  *   - description: Description of this type of content.
  *
- * @see template_preprocess_node_add_list()
+ * @see template_preprocess_mv_add_list()
  *
  * @ingroup themeable
  */
 #}
 {% if types is not empty %}
-  <dl>
+  <ul class="admin-list">
     {% for type in types %}
-      <dt>{{ type.add_link }}</dt>
-      <dd>{{ type.description }}</dd>
+      <li class="clearfix">
+        <a href="{{ type.url }}">
+          <span class="label">{{ type.label }}</span>
+          <div class="description">{{ type.description }}</div>
+        </a>
+      </li>
     {% endfor %}
-  </dl>
+  </ul>
 {% else %}
   <p>
-    {% set create_content = path('node.type_add') %}
+    {% set create_content = path('monahan_variables.type_add') %}
     {% trans %}
-      You have not created any content types yet. Go to the <a href="{{ create_content }}">content type creation page</a> to add a new content type.
+      You have not created any Monahan Variable group types yet. Go
+      to the <a href="{{ create_content }}">Monahan Variables group type
+      creation page</a> to add a new group.
     {% endtrans %}
   </p>
 {% endif %}

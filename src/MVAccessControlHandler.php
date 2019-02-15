@@ -17,11 +17,41 @@ class MVAccessControlHandler extends EntityAccessControlHandler {
   /**
    * {@inheritdoc}
    */
+  protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
+    if ($account->hasPermission('create monahan_variables_mv')) {
+      return AccessResult::allowed()->cachePerPermissions();
+    }
+    else {
+      return parent::checkCreateAccess($account, $context, $entity_bundle);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     if ($operation === 'view') {
       return AccessResult::allowed();
     }
-    return parent::checkAccess($entity, $operation, $account);
+    if ($account->isAuthenticated()) {
+      switch ($operation) {
+        case 'edit':
+        case 'update':
+          return AccessResult::allowedIfHasPermission($account,'edit monahan_variables_mv')
+            ->cachePerPermissions()
+            ->cachePerUser()
+            ->addCacheableDependency($entity);
+        case 'delete':
+          return AccessResult::allowedIfHasPermission($account,'delete monahan_variables_mv')
+            ->cachePerPermissions()
+            ->cachePerUser()
+            ->addCacheableDependency($entity);
+      }
+    }
+    $access_result = parent::checkAccess($entity, $operation, $account);
+    // Make sure the variable group is added as a cache dependency.
+    $access_result->addCacheableDependency($entity);
+    return $access_result;
   }
 
 }

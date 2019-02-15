@@ -14,63 +14,30 @@ function monahan_variables_theme() {
 }
 
 /**
- * Prepares variables for list of available node type templates.
+ * Prepares variables for list of available Monahan Variables Groups.
  *
- * Default template: node-add-list.html.twig.
+ * Default template: mv-add-list.html.twig.
  *
  * @param array $variables
  *   An associative array containing:
- *   - content: An array of content types.
- *
- * @see node_add_page()
+ *   - content: An array of MVType entities.
  */
 function template_preprocess_mv_add_list(&$variables) {
   $variables['types'] = [];
   if (!empty($variables['content'])) {
     foreach ($variables['content'] as $type) {
+      /** @var \Drupal\monahan_variables\MVTypeInterface $type */
       $variables['types'][$type->id()] = [
         'type' => $type->id(),
-        'add_link' => \Drupal::l($type->label(), new Url('monahan_variables_mv.add', ['monahan_variables_mv_type' => $type->id()])),
+        'label' => $type->label(),
+        'url' => new Url(
+          'monahan_variables_mv.add',
+          ['monahan_variables_mv_type' => $type->id()]
+        ),
         'description' => [
           '#markup' => $type->getDescription(),
         ],
       ];
     }
   }
-}
-
-/**
- * Returns the values of a set of Monahan Variables, for use in theming.
- *
- * @param string $type
- *    The MV Type to retrieve the variables from
- *
- * @return array|boolean
- *    The render array for the variable group or false if nothing was found
- */
-function monahan_variables_get_variables($type) {
-  $mvQuery = \Drupal::entityQuery('monahan_variables_mv');
-  $mvQuery->condition('type', $type)->range(0, 1);
-  $mvResult = $mvQuery->execute();
-  if (empty($mvResult)) {
-    return FALSE;
-  }
-  $mv = \Drupal::service('entity.manager')->getStorage('monahan_variables_mv')->load(array_shift($mvResult));
-  /* @var \Drupal\Core\Entity\EntityViewBuilderInterface $render_controller */
-  $render_controller = \Drupal::service('entity.manager')->getViewBuilder($mv->getEntityTypeId());
-  return $render_controller->view($mv);
-}
-
-function monahan_variables_get_value($type, $field) {
-  $mvQuery = \Drupal::entityQuery('monahan_variables_mv');
-  $mvQuery->condition('type', $type)->range(0, 1);
-  $mvResult = $mvQuery->execute();
-  if (empty($mvResult)) {
-    return NULL;
-  }
-  $mv = \Drupal::service('entity.manager')->getStorage('monahan_variables_mv')->load(array_shift($mvResult));
-  if ($mv->hasField($field)) {
-    return $mv->get($field)->value;
-  }
-  return NULL;
 }
