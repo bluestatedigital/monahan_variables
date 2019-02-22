@@ -26,17 +26,4 @@ class MVTranslationHandler extends ContentTranslationHandler {
   protected function entityFormTitle(EntityInterface $entity) {
     return t('Edit @subject variables', ['@subject' => $entity->label()]);
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityFormEntityBuild($entity_type, EntityInterface $entity, array $form, FormStateInterface $form_state) {
-    if ($form_state->hasValue('content_translation')) {
-      $translation = &$form_state->getValue('content_translation');
-      /** @var \Drupal\monahan_variables\MVInterface $entity */
-      $translation['status'] = $entity->isPublished();
-      $translation['name'] = $entity->getAuthorName();
-    }
-    parent::entityFormEntityBuild($entity_type, $entity, $form, $form_state);
-  }
 }

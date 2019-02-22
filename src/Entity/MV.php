@@ -2,11 +2,8 @@
 
 namespace Drupal\monahan_variables\Entity;
 
-use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityPublishedTrait;
+use Drupal\Core\Entity\EditorialContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\RevisionLogEntityTrait;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\monahan_variables\MVInterface;
 
@@ -20,6 +17,7 @@ use Drupal\monahan_variables\MVInterface;
  *   bundle_label = @Translation("Monahan Variables Group"),
  *   handlers = {
  *    "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
+ *    "access" = "Drupal\monahan_variables\MVAccessControlHandler",
  *    "list_builder" = "Drupal\monahan_variables\MVListBuilder",
  *    "view_builder" = "Drupal\monahan_variables\MVViewBuilder",
  *    "form" = {
@@ -28,18 +26,18 @@ use Drupal\monahan_variables\MVInterface;
  *       "edit" = "Drupal\monahan_variables\Form\MVForm",
  *       "delete" = "Drupal\monahan_variables\Form\MVDeleteForm",
  *     },
- *    "access" = "Drupal\monahan_variables\MVAccessControlHandler",
  *    "translation" = "Drupal\monahan_variables\MVTranslationHandler",
  *   },
  *   base_table = "monahan_variables_mv",
- *   revision_table = "monahan_variables_mv_revision",
  *   data_table = "monahan_variables_mv_field_data",
+ *   revision_table = "monahan_variables_mv_revision",
  *   revision_data_table = "monahan_variables_mv_field_revision",
  *   show_revision_ui = TRUE,
  *   translatable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
+ *     "published" = "status",
  *     "bundle" = "type",
  *     "label" = "label",
  *     "langcode" = "langcode",
@@ -47,11 +45,12 @@ use Drupal\monahan_variables\MVInterface;
  *   },
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_uid",
- *     "revision_created" = "revision_timestamp",
+ *     "revision_created" = "revision_created",
  *     "revision_log_message" = "revision_log"
  *   },
  *   links = {
  *     "collection" = "/admin/content/monahan_variables",
+ *     "canonical" = "/admin/content/monahan_variables/{monahan_variables_mv}",
  *     "edit-form" = "/admin/content/monahan_variables/{monahan_variables_mv}",
  *     "delete-form" = "/admin/content/monahan_variables/{monahan_variables_mv}/delete",
  *   },
@@ -59,11 +58,7 @@ use Drupal\monahan_variables\MVInterface;
  *   field_ui_base_route = "entity.monahan_variables_mv_type.edit_form",
  * )
  */
-class MV extends ContentEntityBase implements MVInterface {
-
-  use EntityChangedTrait;
-  use EntityPublishedTrait;
-  use RevisionLogEntityTrait;
+class MV extends EditorialContentEntityBase implements MVInterface {
 
   /**
    * {@inheritdoc}
