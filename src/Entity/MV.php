@@ -2,10 +2,11 @@
 
 namespace Drupal\monahan_variables\Entity;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\Core\Entity\Annotation\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\RevisionLogEntityTrait;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\monahan_variables\MVInterface;
 use Drupal\user\UserInterface;
@@ -60,6 +61,10 @@ use Drupal\user\UserInterface;
  */
 class MV extends ContentEntityBase implements MVInterface {
 
+  use EntityChangedTrait;
+  use EntityPublishedTrait;
+  use RevisionLogEntityTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -105,19 +110,12 @@ class MV extends ContentEntityBase implements MVInterface {
    * in the GUI. The behaviour of the widgets used can be determined here.
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+
     /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['id']->setLabel(t('Monahan Variables ID'))
-                 ->setDescription(t('The group ID.'));
-
-    $fields['uuid']->setDescription(t('The MV UUID.'));
-
-    $fields['revision_id']->setDescription(t('The revision ID.'));
-
-    $fields['langcode']->setDescription(t('The MV language code.'));
-
-    $fields['type']->setLabel(t('Monahan Variables Group'))->setDescription(t('The group.'));
+    // Add the revision metadata fields.
+    $fields += static::revisionLogBaseFieldDefinitions($entity_type);
 
     $fields['label'] = BaseFieldDefinition::create('string')
      ->setLabel(t('Label'))
@@ -155,79 +153,8 @@ class MV extends ContentEntityBase implements MVInterface {
   /**
    * {@inheritdoc}
    */
-  public function getRevisionLog() {
-    return $this->getRevisionLogMessage();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setInfo($info) {
     $this->set('label', $info);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionLog($revision_log) {
-    return $this->setRevisionLogMessage($revision_log);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRevisionCreationTime() {
-    return $this->get('revision_timestamp')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionCreationTime($timestamp) {
-    $this->set('revision_timestamp', $timestamp);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRevisionUser() {
-    return $this->get('revision_uid')->entity;
-  }
-
-  public function setRevisionUser(UserInterface $account) {
-    $this->set('revision_uid', $account);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRevisionUserId() {
-    return $this->get('revision_uid')->entity->id();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionUserId($user_id) {
-    $this->set('revision_uid', $user_id);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRevisionLogMessage() {
-    return $this->get('revision_log')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setRevisionLogMessage($revision_log_message) {
-    $this->set('revision_log', $revision_log_message);
     return $this;
   }
 }
