@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionLogEntityTrait;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\monahan_variables\MVInterface;
-use Drupal\user\UserInterface;
 
 /**
  * Defines the MV entity
@@ -30,6 +29,7 @@ use Drupal\user\UserInterface;
  *       "delete" = "Drupal\monahan_variables\Form\MVDeleteForm",
  *     },
  *    "access" = "Drupal\monahan_variables\MVAccessControlHandler",
+ *    "translation" = "Drupal\monahan_variables\MVTranslationHandler",
  *   },
  *   base_table = "monahan_variables_mv",
  *   revision_table = "monahan_variables_mv_revision",
