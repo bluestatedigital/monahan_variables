@@ -2,6 +2,7 @@
 
 namespace Drupal\monahan_variables;
 
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
@@ -24,14 +25,24 @@ class MVManager {
   protected $entityStorage;
 
   /**
+   * The entity repository.
+   *
+   * @var EntityRepositoryInterface
+   */
+  protected $entityRepository;
+
+  /**
    * MVManager constructor.
    *
    * @param EntityTypeManagerInterface $entityTypeManager
+   * @param EntityRepositoryInterface $entityRepository
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager,
+                              EntityRepositoryInterface $entityRepository) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->entityRepository = $entityRepository;
     $this->entityStorage = $entityTypeManager
       ->getStorage('monahan_variables_mv');
   }
@@ -53,7 +64,8 @@ class MVManager {
     }
     // Get just the first result if there are multiple.
     $mvId = array_shift($mvResult);
-    return $this->entityStorage->load($mvId);
+    $entity = $this->entityStorage->load($mvId);
+    return $this->entityRepository->getTranslationFromContext($entity);
   }
 
   /**
