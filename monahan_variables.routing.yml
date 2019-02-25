@@ -59,6 +59,14 @@ monahan_variables_mv.add:
   requirements:
     _entity_create_access: 'monahan_variables_mv'
 
+entity.monahan_variables_mv.canonical:
+  path: '/admin/content/monahan_variables/{monahan_variables_mv}'
+  defaults:
+    _entity_form: monahan_variables_mv.edit
+    _title: 'Edit MV Group'
+  requirements:
+    _entity_access: 'monahan_variables_mv.update'
+
 entity.monahan_variables_mv.edit_form:
   path: '/admin/content/monahan_variables/{monahan_variables_mv}'
   defaults:

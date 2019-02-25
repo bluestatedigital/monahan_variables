@@ -1,0 +1,4 @@
+services:
+  monahan_variables.manager:
+    class: Drupal\monahan_variables\MVManager
+    arguments: ['@entity.manager', '@entity.repository']
