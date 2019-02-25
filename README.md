@@ -16,20 +16,51 @@ ExpressionEngine.
 No special requirements
 
 # Configuration
-* Create new variable groups in Administration > Structure > Monahan Variable 
+1. Create new variable groups in Administration > Structure > Monahan Variable 
 Groups. Add and configure fields just as you would on a content type.
-* Create a new instance of your group in Administration > Content > Monahan 
+2. Create a new instance of your group in Administration > Content > Monahan 
 Variables. (To make a new set of editable fields, you must both configure the 
-bundle *and* create a new entity.)
-* Configure user permissions in Administration > Stucture > People > 
+bundle **and** create a new content entity.)
+3. Configure user permissions in Administration > Stucture > People > 
 Permissions.
+4. To translate content, enable the Language and Content Translation modules
+and configure custom language settings for Monahan Variables in Configuration > 
+Content language and translation. 
 
 # Usage    
 To display content on the front-end, you'll need to pull in the variable group
 or individual field via a preprocess function. The `monahan_variables.manager` 
-service contains two methods for doing this: getVariables(), which returns the 
-full render array for a variable group, and getValue(), which returns the value 
+service contains two methods for doing this: `getVariables()`, which returns the 
+full render array for a variable group, and `getValue()`, which returns the value 
 of a single field within the group.
+
+Examples:
+```
+/**
+ * Implements hook_preprocess_page().
+ */
+function demo_preprocess_page(&$variables) {
+  $global = \Drupal::service('monahan_variables.manager')
+    ->getVariables('global');
+  $variables['global'] = $global;
+}
+```
+This adds a `global` render array to the page template that contains the 
+field(s) in the Global variables group. These fields can then be rendered in the 
+page.html.twig template with `{{ global }}`.
+
+```
+/**
+ * Implements hook_preprocess_page().
+ */
+function demo_preprocess_page(&$variables) {
+  $copyright = \Drupal::service('monahan_variables.manager')
+    ->getValue('global', 'field_copyright');
+  $variables['copyright'] = $copyright[0]['value'];
+}
+```
+This adds a string value called `copyright` to the page template that contains
+the value of just the copyright field within the Global variables group.
 
 # Credits
 Created by Kelli Monahan at [Blue State Digital](http://www.bluestatedigital.com).
