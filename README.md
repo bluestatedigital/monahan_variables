@@ -30,9 +30,10 @@ Content language and translation.
 # Usage    
 To display content on the front-end, you'll need to pull in the variable group
 or individual field via a preprocess function. The `monahan_variables.manager` 
-service contains two methods for doing this: `getVariables()`, which returns the 
-full render array for a variable group, and `getValue()`, which returns the value 
-of a single field within the group.
+service contains three methods for doing this: `getVariables()`, which returns the 
+full render array for a variable group, `getValue()`, which returns the value 
+of a single field within the group, and `getAllValues()`, which returns the
+string value of all fields in a variable group.
 
 Examples:
 ```

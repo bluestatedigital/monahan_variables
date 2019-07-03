@@ -108,4 +108,33 @@ class MVManager {
     }
     return NULL;
   }
+
+  /**
+   * Return an array containing the string values of all fields in a group.
+   *
+   * Use when you want to pass the string values to the front-end
+   * programmatically, e.g. by adding to a JSON object or Drupal JS settings.
+   * If you want to render the values as part of a template, use the
+   * getVariables() method instead.
+   *
+   * @param string $type
+   *   The MV Type from which to retrieve the variables.
+   * @return array|NULL
+   *   The array of all values for the variable group or NULL if nothing was
+   *   found.
+   */
+  public function getAllValues($type) {
+    $mv = $this->loadByType($type);
+    if (!$mv) {
+      return NULL;
+    }
+    $fields = $mv->getFields();
+    $values = [];
+    foreach ($fields as $name => $property) {
+      if (strpos($name, 'field_') === 0) {
+        $values[$name] = $property->getString();
+      }
+    }
+    return $values;
+  }
 }
